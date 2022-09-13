@@ -2,7 +2,7 @@
 #include <exception>
 using namespace std;
 struct String{
-    explicit String(const char * c){
+    String(const char * c){
         for(size = 0; c[size] != '\0'; ++size){}
         head = new char[++size];
         for(int i = 0 ; i < size + 1; i++){
@@ -15,7 +15,7 @@ struct String{
         head = nullptr;
         size = 0;
     }
-    explicit String(String & s){
+    String(String & s){
         size = s.get_size();
         head = new char[size];
         for(int i = 0; i < size + 1; i++ ){
