@@ -11,6 +11,7 @@ template <class T>
             u_ptr<T>& operator = (u_ptr<T> & a){
                 if(!a.ptr) throw 1;
                 if(this == &a) return this;
+                delete ptr;
                 ptr = a.ptr;
                 a.ptr = nullptr;
                 return this;
