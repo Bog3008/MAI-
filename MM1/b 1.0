@@ -1,0 +1,319 @@
+from pylab import *
+
+def s_func(x, a, b, y):
+    if x <= a:
+        return 0
+    if a < x <= b:
+        return 2*pow(((x-a)/(y-a)), 2)
+    if b < x < y:
+        return 1 - 2*pow(((x-y)/(y-a)), 2)
+    return 1
+
+def z_func(x, a, b, y):
+    if x <= a:
+        return 1
+    if a < x <= b:
+        return 1 - 2*pow(((x-a)/(y-a)), 2)
+    if b < x < y:
+        return 2 * pow(((y - x) / (y - a)), 2)
+    else:
+        return 0
+
+def pi_func(x, b, y):
+    if x == y:
+        return 1
+    if x <= y:
+        return s_func(x, y - b, y-b*0.5, y)
+    if x > y:
+        return z_func(x, y, y+b*0.5, y+b)
+
+
+'''
+ 'r' = red
+ 'g' = green
+ 'b' = blue
+ 'c' = cyan
+ 'm' = magenta
+ 'y' = yellow
+ 'k' = black
+ 'w' = white
+'''
+colors = ['r', 'g', 'b', 'c', 'm', 'y', 'k']
+def attendance():
+    x = list()
+    y = list()
+    for i in range(4):
+        y.append(list())
+
+    for i in range(0, 150):
+        s_answ = z_func(i, 10, 20, 30)
+        x.append(i)
+        y[0].append(s_answ)
+
+        s_answ = pi_func(i, 20, 40)
+        y[1].append(s_answ)
+
+        s_answ = pi_func(i, 20, 60)
+        y[2].append(s_answ)
+
+        s_answ = s_func(i, 75, 90, 100)
+        y[3].append(s_answ)
+    term_sem = ['bad', 'middle', 'good', 'excelent']
+    figure()
+    for i in range(len(y)):
+        plot(x, y[i], color = colors[i], label = term_sem[i])
+    legend(loc='upper right')
+    xlabel('x')
+    ylabel('y')
+    title('Посещаемость семинаров')
+    show()
+def work_rate():
+    x = list()
+    y = list()
+    for i in range(3):
+        y.append(list())
+    for i in range(0, 150):
+        s_answ = z_func(i, 10, 15, 25)
+        x.append(i)
+        y[0].append(s_answ)
+
+        s_answ = pi_func(i, 35, 50)
+        y[1].append(s_answ)
+
+        s_answ = s_func(i, 80, 90, 100)
+        y[2].append(s_answ)
+    term_sem = ['bad', 'middle', 'good', 'excelent']
+    figure()
+    for i in range(len(y)):
+        plot(x, y[i], color = colors[i], label = term_sem[i])
+    legend(loc='upper right')
+    xlabel('x')
+    ylabel('y')
+    title('Работа на пз')
+    show()
+def answ_rate():
+    x = list()
+    y = list()
+    for i in range(4):
+        y.append(list())
+
+    for i in range(0, 150):
+        s_answ = z_func(i, 10, 25, 40)
+        x.append(i)
+        y[0].append(s_answ)
+
+        s_answ = pi_func(i, 15, 50)
+        y[1].append(s_answ)
+
+        s_answ = pi_func(i, 15, 75)
+        y[2].append(s_answ)
+
+        s_answ = s_func(i, 90, 95, 100)
+        y[3].append(s_answ)
+    term_sem = ['bad', 'middle', 'good', 'excelent']
+    figure()
+    for i in range(len(y)):
+        plot(x, y[i], color=colors[i], label=term_sem[i])
+    legend(loc='upper right')
+    xlabel('x')
+    ylabel('y')
+    title('Ответ на билет')
+    show()
+
+def final_rate():
+    x = list()
+    y = list()
+    for i in range(4):
+        y.append(list())
+
+    for i in range(0, 150):
+        s_answ = z_func(i, 10, 25, 40)
+        x.append(i)
+        y[0].append(s_answ)
+
+        s_answ = pi_func(i, 10, 60)
+        y[1].append(s_answ)
+
+        s_answ = pi_func(i, 15, 75)
+        y[2].append(s_answ)
+
+        s_answ = s_func(i, 90, 95, 100)
+        y[3].append(s_answ)
+    term_sem = ['bad', 'middle', 'good', 'excelent']
+    figure()
+    for i in range(len(y)):
+        plot(x, y[i], color=colors[i], label=term_sem[i])
+    legend(loc='upper right')
+    xlabel('x')
+    ylabel('y')
+    title('Посещаемость семинаров')
+    show()
+
+###from num into term###
+def result_attendance(att):
+    res = list()
+    res.append(z_func(att, 10, 20, 30))
+    res.append(pi_func(att, 20, 40))
+    res.append( pi_func(att, 20, 60))
+    res.append(s_func(att, 75, 90, 100))
+
+    max_val = -1
+    ind_of_max = -1
+    for i in range(len(res)):
+        if max_val <= res[i]:
+            max_val = res[i]
+            ind_of_max = i
+    term_sem = ['bad', 'middle', 'good', 'excelent']
+    return term_sem[ind_of_max]
+def result_work(w_r):
+    res = list()
+    res.append(z_func(w_r, 10, 15, 25))
+    res.append(pi_func(w_r, 35, 50))
+    res.append(s_func(w_r, 80, 90, 100))
+
+    max_val = -1
+    ind_of_max = -1
+    for i in range(len(res)):
+        if max_val <= res[i]:
+            max_val = res[i]
+            ind_of_max = i
+    term_sem = ['bad', 'middle', 'good', 'excelent']
+    return term_sem[ind_of_max]
+def result_answ(answ_r):
+    res = list()
+    res.append(z_func(answ_r, 10, 25, 40))
+    res.append(pi_func(answ_r, 15, 50))
+    res.append(pi_func(answ_r, 15, 75))
+    res.append(s_func(answ_r, 90, 95, 100))
+    max_val = -1
+    ind_of_max = -1
+    for i in range(len(res)):
+        if max_val <= res[i]:
+            max_val = res[i]
+            ind_of_max = i
+    term_sem = ['bad', 'middle', 'good', 'excelent']
+    return term_sem[ind_of_max]
+
+###rusult of un logic output
+def result_one(att_ind, work_ind, answ_ind):
+    x = list()
+    for i in range(0, 150):
+        x.append(i)
+    #attadance gr
+    y_att = list()
+    if att_ind == "bad":
+        for i in range(0, 150):
+            s_answ = z_func(i, 10, 20, 30)
+            y_att.append(s_answ)
+    if att_ind == "middle":
+        for i in range(0, 150):
+            s_answ = pi_func(i, 20, 40)
+            y_att.append(s_answ)
+    if att_ind == "good":
+        for i in range(0, 150):
+            s_answ = pi_func(i, 20, 60)
+            y_att.append(s_answ)
+    if att_ind == "excelent":
+        for i in range(0, 150):
+            s_answ = s_func(i, 75, 90, 100)
+            y_att.append(s_answ)
+
+    ### work graph
+    y_work = list()
+    if work_ind == "bad":
+        for i in range(0, 150):
+            s_answ = z_func(i, 10, 15, 25)
+            y_work.append(s_answ)
+    if work_ind == "middle":
+        for i in range(0, 150):
+            s_answ = pi_func(i, 35, 50)
+            y_work.append(s_answ)
+    if work_ind == "good":
+        for i in range(0, 150):
+            s_answ = s_func(i, 80, 90, 100)
+            y_work.append(s_answ)
+
+    ### answ grap
+    y_answ = list()
+    if answ_ind == "bad":
+        for i in range(0, 150):
+            s_answ = z_func(i, 10, 25, 40)
+            y_answ.append(s_answ)
+    if answ_ind == "middle":
+        for i in range(0, 150):
+            s_answ = pi_func(i, 15, 50)
+            y_answ.append(s_answ)
+    if answ_ind == "good":
+        for i in range(0, 150):
+            s_answ = pi_func(i, 15, 75)
+            y_answ.append(s_answ)
+    if answ_ind == "excelent":
+        for i in range(0, 150):
+            s_answ = s_func(i, 90, 95, 100)
+            y_answ.append(s_answ)
+
+
+    term_sem = ['bad', 'middle', 'good', 'excelent']
+    figure, axis = plt.subplots(3, 1)
+
+    axis[0, 0].plot(x, y_att)
+    axis[0, 0].set_title("attendance")
+
+    axis[0, 1].plot(x, y_work)
+    axis[0, 1].set_title("work")
+
+    axis[0, 2].plot(x, y_answ)
+    axis[0, 2].set_title("answer")
+
+    show()
+
+
+
+###uncomment when test and realese###
+'''att = input("Enter the attendance: ")
+w_r = input("work rate: ")
+answ_r = input("answers rate: ")'''
+attendance()
+work_rate()
+answ_rate()
+
+att = 60
+w_r = 80
+answer_r = 50
+
+att_val = result_attendance(att)
+work_val = result_work(w_r)
+answ_val = result_answ(answer_r)
+
+print('attendance: ', att_val)
+print('work rate: ', work_val)
+print('answers rate: ', answ_val )
+
+### BASE OF RULES
+term_result = ''
+if answ_val == "excelent":
+    term_result = "excelent"
+
+if answ_val == "good":
+    if work_val == "good" and (att_val == "excelent" or att_val == "good"):
+        term_result = "excelent"
+    else:
+        term_resul = "good"
+
+if answ_val == "middle":
+    if work_val == "good" and att_val == "excelent":
+        term_result = "good"
+    else:
+        term_resul = "middle"
+
+if answ_val == "bad":
+    if work_val == "good" and att_val == "excelent":
+        term_result = "middle"
+    else:
+        term_resul = "bad"
+
+print('\nresult: ',term_resul)
+
+# fill_between(x, y[0])
+#['bad', 'middle', 'good', 'excelent']
+result_one(att_val, work_val, answ_val)
